@@ -15,6 +15,12 @@ import React, { Component } from 'react';
      };
    }
 
+   deleteTodo(index) {
+     const { todos } = this.state;
+     const filteredTodos = todos.filter((todo, i) => i !== index);
+     this.setState({ todos: filteredTodos});
+   }
+
    handleChange(e) {
      this.setState({ newTodoDescription: e.target.value })
    }
@@ -38,12 +44,13 @@ import React, { Component } from 'react';
        <div className="App">
         <ul>
           {this.state.todos.map( (todo, index) =>
-            <ToDo key={ index } description={ todo.description} isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) } />
+            <ToDo key={ index } description={ todo.description} isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) } deleteTodo={() => this.deleteTodo(index)} />
           )}
         </ul>
         <form onSubmit={ (e) => this.handleSubmit(e) }>
           <input type="text" value={ this.state.newTodoDescription } onChange={ (e) => this.handleChange(e) }/>
           <input type="submit" />
+
         </form>
        </div>
      );
